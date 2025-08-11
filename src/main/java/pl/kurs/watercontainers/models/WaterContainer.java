@@ -4,15 +4,28 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class WaterContainer implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private String name;
     private double maxCapacity;
     private double waterLevel;
 
-    public WaterContainer(String name, double maxCapacity, double waterLevel) {
+    private WaterContainer(String name, double maxCapacity, double waterLevel) {
         this.name = name;
         this.maxCapacity = maxCapacity;
         this.waterLevel = waterLevel;
+    }
+
+    public static WaterContainer create(String name, double maxCapacity, double waterLevel){
+        if (maxCapacity <= 0){
+            throw new RuntimeException("maxCapacity musi być wieksza od 0!");
+        } else if (waterLevel < 0){
+            throw new RuntimeException("waterLevel musi być wiekszy od 0");
+        } else if (maxCapacity < waterLevel){
+            throw new RuntimeException("pojemność nie moze byc mniejsza niz ilosc wody!");
+        } else {
+            return new WaterContainer(name, maxCapacity, waterLevel);
+        }
     }
 
     public String getName() {
