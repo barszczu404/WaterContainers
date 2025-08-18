@@ -17,6 +17,7 @@ public class Application {
         WaterContainer mauzer1 = WaterContainer.create("mauzer", 1000, 900);
         WaterContainer konewka1 = WaterContainer.create("konewka", 5, 1);
 
-        beczka.addWater(80);
+       // beczka.addWater(80);
+        mauzer1.pourWater(konewka1, 1);
     }
 }
