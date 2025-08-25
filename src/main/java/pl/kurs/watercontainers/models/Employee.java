@@ -1,6 +1,7 @@
 package pl.kurs.watercontainers.models;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Employee implements Serializable {
@@ -8,12 +9,12 @@ public class Employee implements Serializable {
 
     private String firstName;
     private String lastName;
-    private double salary;
+    private BigDecimal salary;
 
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName, double salary) {
+    public Employee(String firstName, String lastName, BigDecimal salary) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.salary = salary;
@@ -35,11 +36,11 @@ public class Employee implements Serializable {
         this.lastName = lastName;
     }
 
-    public double getSalary() {
+    public BigDecimal getSalary() {
         return salary;
     }
 
-    public void setSalary(double salary) {
+    public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
 
@@ -48,7 +49,7 @@ public class Employee implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return Double.compare(employee.salary, salary) == 0 && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName);
+        return Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(salary, employee.salary);
     }
 
     @Override
