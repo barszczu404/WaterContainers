@@ -36,5 +36,14 @@ public class WaterContainerService {
         return mostFilledContainer;
     }
 
+    public static List<WaterContainer> findEmptyContainers(List<WaterContainer> list){
+        List<WaterContainer> emtpyContainersList = Collections.emptyList();
+        for (WaterContainer waterContainer : list){
+            if (waterContainer.getWaterLevel() == 0){
+                emtpyContainersList.add(waterContainer);
+            }
+        }
+        return emtpyContainersList;
+    }
 
 }

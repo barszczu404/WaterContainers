@@ -20,6 +20,8 @@ public class Application {
         WaterContainer beczka = WaterContainer.create("beczka", 150, 100);
         WaterContainer mauzer1 = WaterContainer.create("mauzer", 1000, 400);
         WaterContainer konewka1 = WaterContainer.create("konewka", 5, 1);
+        WaterContainer szklanka = WaterContainer.create("szklanka", 0.5, 0);
+        WaterContainer wazon = WaterContainer.create("wazon", 0.75, 0);
 
        // beczka.addWater(80);
         mauzer1.pourWater(konewka1, 1);
@@ -28,6 +30,8 @@ public class Application {
         list.add(beczka);
         list.add(mauzer1);
         list.add(konewka1);
+        list.add(szklanka);
+        list.add(wazon);
 
         WaterContainer containerWithTheBiggestWaterAmount = WaterContainerService.findContainerWithTheBiggestWaterAmount(list);
         System.out.println("containerWithTheBiggestWaterAmount = " + containerWithTheBiggestWaterAmount);
