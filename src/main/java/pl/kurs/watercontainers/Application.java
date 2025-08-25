@@ -1,6 +1,10 @@
 package pl.kurs.watercontainers;
 
 import pl.kurs.watercontainers.models.WaterContainer;
+import pl.kurs.watercontainers.services.WaterContainerService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
@@ -19,5 +23,13 @@ public class Application {
 
        // beczka.addWater(80);
         mauzer1.pourWater(konewka1, 1);
+
+        List<WaterContainer> list = new ArrayList<>();
+        list.add(beczka);
+        list.add(mauzer1);
+        list.add(konewka1);
+
+        WaterContainer containerWithTheBiggestWaterAmount = WaterContainerService.findContainerWithTheBiggestWaterAmount(list);
+        System.out.println("containerWithTheBiggestWaterAmount = " + containerWithTheBiggestWaterAmount);
     }
 }
