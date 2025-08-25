@@ -16,12 +16,12 @@ public class WaterContainer implements Serializable {
         this.waterLevel = waterLevel;
     }
 
-    public static WaterContainer create(String name, double maxCapacity, double waterLevel){
-        if (maxCapacity <= 0){
+    public static WaterContainer create(String name, double maxCapacity, double waterLevel) {
+        if (maxCapacity <= 0) {
             throw new RuntimeException("maxCapacity musi być wieksza od 0!");
-        } else if (waterLevel < 0){
+        } else if (waterLevel < 0) {
             throw new RuntimeException("waterLevel musi być wiekszy od 0");
-        } else if (maxCapacity < waterLevel){
+        } else if (maxCapacity < waterLevel) {
             throw new RuntimeException("pojemność nie moze byc mniejsza niz ilosc wody!");
         } else {
             return new WaterContainer(name, maxCapacity, waterLevel);
@@ -74,8 +74,8 @@ public class WaterContainer implements Serializable {
                 '}';
     }
 
-    public void addWater(double value){
-        if (value <= 0){
+    public void addWater(double value) {
+        if (value <= 0) {
             System.out.println("Wartosc powinna byc wieksza od 0");
         } else if (maxCapacity < waterLevel + value) {
             System.out.println("Za duzo wody aby ją dodać!");
@@ -84,10 +84,10 @@ public class WaterContainer implements Serializable {
         }
     }
 
-    public void subtractWater(double value){
-        if (value <= 0){
+    public void subtractWater(double value) {
+        if (value <= 0) {
             System.out.println("Wartosc powinna byc wieksza od 0");
-        } else if (waterLevel - value < 0){
+        } else if (waterLevel - value < 0) {
             System.out.println("Za duzo wody do odlania");
         } else {
             waterLevel -= value;
@@ -95,20 +95,24 @@ public class WaterContainer implements Serializable {
 
     }
 
-    private boolean addIsPossible(double value){
-       return waterLevel + value <= maxCapacity;
+    private boolean addIsPossible(double value) {
+        return waterLevel + value <= maxCapacity;
     }
 
-    private boolean subtractIsPossible(double value){
+    private boolean subtractIsPossible(double value) {
         return waterLevel - value >= 0;
     }
 
-    public void pourWater(WaterContainer sourceContainer, double value){
-        if (this.addIsPossible(value) && sourceContainer.subtractIsPossible(value)){
+    public void pourWater(WaterContainer sourceContainer, double value) {
+        if (this.addIsPossible(value) && sourceContainer.subtractIsPossible(value)) {
             sourceContainer.subtractWater(value);
             this.addWater(value);
         } else {
             System.out.println("Niemożliwe wykonanie operacji przelania wody");
         }
+    }
+
+    public double getFillingRatio() {
+        return waterLevel / maxCapacity;
     }
 }

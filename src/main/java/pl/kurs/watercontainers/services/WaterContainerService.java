@@ -25,4 +25,16 @@ public class WaterContainerService {
         }
         return wc;
     }
+
+    public static WaterContainer findMostFilledContainer(List<WaterContainer> list){
+        WaterContainer mostFilledContainer = list.get(0);
+        for (int i = 1; i < list.size(); i++){
+            if (list.get(i).getFillingRatio() > mostFilledContainer.getFillingRatio()){
+                mostFilledContainer = list.get(i);
+            }
+        }
+        return mostFilledContainer;
+    }
+
+
 }
