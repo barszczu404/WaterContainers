@@ -33,10 +33,13 @@ public class Application {
         list.add(szklanka);
         list.add(wazon);
 
-        WaterContainer containerWithTheBiggestWaterAmount = WaterContainerService.findContainerWithTheBiggestWaterAmount(list);
+        WaterContainer containerWithTheBiggestWaterAmount = WaterContainerService.findContainerWithTheBiggestWaterAmount(null);
         System.out.println("containerWithTheBiggestWaterAmount = " + containerWithTheBiggestWaterAmount);
 
         WaterContainer mostFilledContainer = WaterContainerService.findMostFilledContainer(list);
         System.out.println("mostFilledContainer = " + mostFilledContainer);
+
+        WaterContainerService.findEmptyContainers(null);
+
     }
 }
