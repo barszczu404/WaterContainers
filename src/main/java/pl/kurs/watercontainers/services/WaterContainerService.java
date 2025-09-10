@@ -2,6 +2,7 @@ package pl.kurs.watercontainers.services;
 
 import pl.kurs.watercontainers.models.OperationsLogWrapper;
 import pl.kurs.watercontainers.models.WaterContainer;
+import pl.kurs.watercontainers.models.WaterContainerOperations;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,7 +59,6 @@ public class WaterContainerService {
 
     //Należy zaimplementować taką funkcjonalność oraz dodatkowo stworzyć metody które:
     //- pozwalają znaleźć zbiornik na którym było najwiecej operacji zakonczonych niepowodzeniem
-    //- pozwalają znaleźć zbiornik w którym było najwięcej operacji danego typu (typ podajemy jako argument metody)
 
     public static WaterContainer getContainerWithMostUnsuccessfulOperations(List<WaterContainer> list) {
         if (list == null){
@@ -80,5 +80,27 @@ public class WaterContainerService {
 
         }
         return worstContainer;
+    }
+
+    //- pozwalają znaleźć zbiornik w którym było najwięcej operacji danego typu (typ podajemy jako argument metody)
+    public static WaterContainer getContainerWithMostOperationThisType(List<WaterContainer> list, WaterContainerOperations waterContainerOperations){
+        if (list == null){
+            return null;
+        }
+        int counter = 0;
+        WaterContainer containerWithMostOperationChosenType = null;
+        for (int i = 0; i < list.size(); i++){
+            int chosenTypeOperation = 0;
+            for (OperationsLogWrapper operationsLogWrapper : list.get(i).getOperations()){
+                if (operationsLogWrapper.getOperationName() == waterContainerOperations) {
+                    chosenTypeOperation++;
+                }
+            }
+            if (chosenTypeOperation > counter){
+                counter = chosenTypeOperation;
+                containerWithMostOperationChosenType = list.get(i);
+            }
+        }
+        return containerWithMostOperationChosenType;
     }
 }

@@ -2,6 +2,7 @@ package pl.kurs.watercontainers;
 
 import pl.kurs.watercontainers.models.OperationsLogWrapper;
 import pl.kurs.watercontainers.models.WaterContainer;
+import pl.kurs.watercontainers.models.WaterContainerOperations;
 import pl.kurs.watercontainers.services.WaterContainerService;
 
 import java.util.ArrayList;
@@ -50,6 +51,9 @@ public class Application {
 
         WaterContainer containerWithMostUnsuccessfulOperations = WaterContainerService.getContainerWithMostUnsuccessfulOperations(list);
         System.out.println("containerWithMostUnsuccessfulOperations = " + containerWithMostUnsuccessfulOperations);
+
+        WaterContainer containerWithMostOperationThisType = WaterContainerService.getContainerWithMostOperationThisType(list, WaterContainerOperations.SUBTRACT);
+        System.out.println("containerWithMostOperationThisType = " + containerWithMostOperationThisType);
 
 //operacje Enum odlanie i dolanie,
     }
