@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
-import java.util.List; //
+import java.util.List;
 
 public class WaterContainer implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -12,7 +12,7 @@ public class WaterContainer implements Serializable {
     private String name;
     private double maxCapacity;
     private double waterLevel;
-    private List<OperationsLogWrapper> operations = new ArrayList<>(); //
+    private List<OperationsLogWrapper> operations = new ArrayList<>();
 
     private WaterContainer(String name, double maxCapacity, double waterLevel) {
         this.name = name;
@@ -145,5 +145,4 @@ public class WaterContainer implements Serializable {
     }
     //on ma wiedziec ile operacji robil, liste operacji czy sie powiodly
 
-    //zrobic pull request recenzetn!!!
 }

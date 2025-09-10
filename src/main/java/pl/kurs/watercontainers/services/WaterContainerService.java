@@ -1,5 +1,6 @@
 package pl.kurs.watercontainers.services;
 
+import pl.kurs.watercontainers.models.OperationsLogWrapper;
 import pl.kurs.watercontainers.models.WaterContainer;
 
 import java.util.ArrayList;
@@ -55,4 +56,29 @@ public class WaterContainerService {
         return emtpyContainersList;
     }
 
+    //Należy zaimplementować taką funkcjonalność oraz dodatkowo stworzyć metody które:
+    //- pozwalają znaleźć zbiornik na którym było najwiecej operacji zakonczonych niepowodzeniem
+    //- pozwalają znaleźć zbiornik w którym było najwięcej operacji danego typu (typ podajemy jako argument metody)
+
+    public static WaterContainer getContainerWithMostUnsuccessfulOperations(List<WaterContainer> list) {
+        if (list == null){
+            return null;
+        }
+        WaterContainer worstContainer = list.get(0);
+        int counter = 0;
+        for (int i = 1; i < list.size(); i++){
+            int unsuccessfulOperations = 0;
+            for (OperationsLogWrapper operationsLogWrapper : list.get(i).getOperations()){
+                if (operationsLogWrapper.isOperationSucceeded() == false){
+                    unsuccessfulOperations++;
+                }
+            }
+            if (unsuccessfulOperations > counter) {
+                counter = unsuccessfulOperations;
+                worstContainer = list.get(i);
+            }
+
+        }
+        return worstContainer;
+    }
 }
