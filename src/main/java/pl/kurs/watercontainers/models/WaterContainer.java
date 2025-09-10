@@ -1,7 +1,10 @@
 package pl.kurs.watercontainers.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
+import java.util.List; //
 
 public class WaterContainer implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -9,6 +12,7 @@ public class WaterContainer implements Serializable {
     private String name;
     private double maxCapacity;
     private double waterLevel;
+    private List<OperationsLogWrapper> operations = new ArrayList<>(); //
 
     private WaterContainer(String name, double maxCapacity, double waterLevel) {
         this.name = name;
@@ -52,6 +56,10 @@ public class WaterContainer implements Serializable {
         this.waterLevel = waterLevel;
     }
 
+    public List<OperationsLogWrapper> getOperations() {
+        return Collections.unmodifiableList(operations);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,22 +83,42 @@ public class WaterContainer implements Serializable {
     }
 
     public void addWater(double value) {
+        OperationsLogWrapper op = new OperationsLogWrapper(WaterContainerOperations.ADD);
+        op.setWaterContainer(this);
+        op.setWaterTriedToPour(value);
         if (value <= 0) {
             System.out.println("Wartosc powinna byc wieksza od 0");
+            op.setOperationSucceeded(false);
+            operations.add(op);
+
         } else if (maxCapacity < waterLevel + value) {
             System.out.println("Za duzo wody aby ją dodać!");
+            op.setOperationSucceeded(false);
+            operations.add(op);
         } else {
             waterLevel += value;
+            op.setOperationSucceeded(true);
+            operations.add(op);
         }
+        //obiekt operacji ma sie tworzyc
     }
 
     public void subtractWater(double value) {
+        OperationsLogWrapper op = new OperationsLogWrapper(WaterContainerOperations.SUBTRACT);
+        op.setWaterContainer(this);
+        op.setWaterTriedToPour(value);
         if (value <= 0) {
             System.out.println("Wartosc powinna byc wieksza od 0");
+            op.setOperationSucceeded(false);
+            operations.add(op);
         } else if (waterLevel - value < 0) {
             System.out.println("Za duzo wody do odlania");
+            op.setOperationSucceeded(false);
+            operations.add(op);
         } else {
             waterLevel -= value;
+            op.setOperationSucceeded(true);
+            operations.add(op);
         }
 
     }
@@ -115,4 +143,7 @@ public class WaterContainer implements Serializable {
     public double getFillingRatio() {
         return waterLevel / maxCapacity;
     }
+    //on ma wiedziec ile operacji robil, liste operacji czy sie powiodly
+
+    //zrobic pull request recenzetn!!!
 }
