@@ -1,10 +1,14 @@
 package pl.kurs.watercontainers.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
+import java.util.List;
 
 public class WaterContainer implements Serializable {
     private static final long serialVersionUID = 1L;
+    private List<WaterContainerOperation> operations = new ArrayList<>();
 
     private String name;
     private double maxCapacity;
@@ -52,6 +56,10 @@ public class WaterContainer implements Serializable {
         this.waterLevel = waterLevel;
     }
 
+    public List<WaterContainerOperation> getOperations() {
+        return Collections.unmodifiableList(operations);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,24 +83,31 @@ public class WaterContainer implements Serializable {
     }
 
     public void addWater(double value) {
+        boolean isSuccess = false;
         if (value <= 0) {
             System.out.println("Wartosc powinna byc wieksza od 0");
         } else if (maxCapacity < waterLevel + value) {
             System.out.println("Za duzo wody aby ją dodać!");
         } else {
             waterLevel += value;
+            isSuccess = true;
+
         }
+        operations.add(new WaterContainerOperation(WaterContainerOperation.OperationType.ADD, this, value, isSuccess));
+        //obiekt operacji ma sie tworzyc
     }
 
     public void subtractWater(double value) {
+       boolean success = false;
         if (value <= 0) {
             System.out.println("Wartosc powinna byc wieksza od 0");
         } else if (waterLevel - value < 0) {
             System.out.println("Za duzo wody do odlania");
         } else {
             waterLevel -= value;
+            success = true;
         }
-
+        operations.add(new WaterContainerOperation(WaterContainerOperation.OperationType.SUBTRACT, this, value, success));
     }
 
     private boolean addIsPossible(double value) {
@@ -115,4 +130,6 @@ public class WaterContainer implements Serializable {
     public double getFillingRatio() {
         return waterLevel / maxCapacity;
     }
+    //on ma wiedziec ile operacji robil, liste operacji czy sie powiodly
+
 }

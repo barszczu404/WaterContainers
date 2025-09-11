@@ -1,5 +1,6 @@
 package pl.kurs.watercontainers;
 
+import pl.kurs.watercontainers.models.WaterContainerOperation;
 import pl.kurs.watercontainers.models.WaterContainer;
 import pl.kurs.watercontainers.services.WaterContainerService;
 
@@ -23,8 +24,18 @@ public class Application {
         WaterContainer szklanka = WaterContainer.create("szklanka", 0.5, 0);
         WaterContainer wazon = WaterContainer.create("wazon", 0.75, 0);
 
-       // beczka.addWater(80);
+        beczka.addWater(80);
         mauzer1.pourWater(konewka1, 1);
+        mauzer1.subtractWater(1);
+        mauzer1.subtractWater(1);
+        mauzer1.subtractWater(1);
+        mauzer1.subtractWater(1);
+        mauzer1.subtractWater(1);
+        mauzer1.subtractWater(1);
+        mauzer1.subtractWater(1);
+        mauzer1.subtractWater(10_000);
+
+
 
         List<WaterContainer> list = new ArrayList<>();
         list.add(beczka);
@@ -41,5 +52,18 @@ public class Application {
 
         WaterContainerService.findEmptyContainers(null);
 
+        List<WaterContainerOperation> operations = beczka.getOperations();
+        System.out.println("operations = " + operations);
+
+        List<WaterContainerOperation> mauzerOperations = mauzer1.getOperations();
+        System.out.println("mauzerOperations = " + mauzerOperations);
+
+        WaterContainer containerWithMostUnsuccessfulOperations = WaterContainerService.getContainerWithMostUnsuccessfulOperations(list);
+        System.out.println("containerWithMostUnsuccessfulOperations = " + containerWithMostUnsuccessfulOperations);
+
+        WaterContainer containerWithMostOperationSubtractType = WaterContainerService.getContainerWithMostSpecificOperationType(list, WaterContainerOperation.OperationType.SUBTRACT);
+        System.out.println("containerWithMostOperationSubtractType = " + containerWithMostOperationSubtractType);
+
+//operacje Enum odlanie i dolanie,
     }
 }
