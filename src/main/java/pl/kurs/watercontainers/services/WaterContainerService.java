@@ -1,11 +1,9 @@
 package pl.kurs.watercontainers.services;
 
-import pl.kurs.watercontainers.models.OperationsLogWrapper;
+import pl.kurs.watercontainers.models.WaterContainerOperation;
 import pl.kurs.watercontainers.models.WaterContainer;
-import pl.kurs.watercontainers.models.WaterContainerOperations;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class WaterContainerService {
@@ -64,12 +62,12 @@ public class WaterContainerService {
         if (list == null){
             return null;
         }
-        WaterContainer worstContainer = list.get(0);
+        WaterContainer worstContainer = null;
         int counter = 0;
-        for (int i = 1; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++){
             int unsuccessfulOperations = 0;
-            for (OperationsLogWrapper operationsLogWrapper : list.get(i).getOperations()){
-                if (operationsLogWrapper.isOperationSucceeded() == false){
+            for (WaterContainerOperation waterContainerOperation : list.get(i).getOperations()){
+                if (!waterContainerOperation.isOperationSucceeded()){
                     unsuccessfulOperations++;
                 }
             }
@@ -83,21 +81,21 @@ public class WaterContainerService {
     }
 
     //- pozwalają znaleźć zbiornik w którym było najwięcej operacji danego typu (typ podajemy jako argument metody)
-    public static WaterContainer getContainerWithMostOperationThisType(List<WaterContainer> list, WaterContainerOperations waterContainerOperations){
+    public static WaterContainer getContainerWithMostSpecificOperationType(List<WaterContainer> list, WaterContainerOperation.OperationType operationType){
         if (list == null){
             return null;
         }
         int counter = 0;
         WaterContainer containerWithMostOperationChosenType = null;
         for (int i = 0; i < list.size(); i++){
-            int chosenTypeOperation = 0;
-            for (OperationsLogWrapper operationsLogWrapper : list.get(i).getOperations()){
-                if (operationsLogWrapper.getOperationName() == waterContainerOperations) {
-                    chosenTypeOperation++;
+            int chosenTypeOperationCounter = 0;
+            for (WaterContainerOperation waterContainerOperation : list.get(i).getOperations()){
+                if (waterContainerOperation.getOperationType() == operationType) {
+                    chosenTypeOperationCounter++;
                 }
             }
-            if (chosenTypeOperation > counter){
-                counter = chosenTypeOperation;
+            if (chosenTypeOperationCounter > counter){
+                counter = chosenTypeOperationCounter;
                 containerWithMostOperationChosenType = list.get(i);
             }
         }

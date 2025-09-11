@@ -1,8 +1,7 @@
 package pl.kurs.watercontainers;
 
-import pl.kurs.watercontainers.models.OperationsLogWrapper;
+import pl.kurs.watercontainers.models.WaterContainerOperation;
 import pl.kurs.watercontainers.models.WaterContainer;
-import pl.kurs.watercontainers.models.WaterContainerOperations;
 import pl.kurs.watercontainers.services.WaterContainerService;
 
 import java.util.ArrayList;
@@ -27,6 +26,16 @@ public class Application {
 
         beczka.addWater(80);
         mauzer1.pourWater(konewka1, 1);
+        mauzer1.subtractWater(1);
+        mauzer1.subtractWater(1);
+        mauzer1.subtractWater(1);
+        mauzer1.subtractWater(1);
+        mauzer1.subtractWater(1);
+        mauzer1.subtractWater(1);
+        mauzer1.subtractWater(1);
+        mauzer1.subtractWater(10_000);
+
+
 
         List<WaterContainer> list = new ArrayList<>();
         list.add(beczka);
@@ -43,17 +52,17 @@ public class Application {
 
         WaterContainerService.findEmptyContainers(null);
 
-        List<OperationsLogWrapper> operations = beczka.getOperations();
+        List<WaterContainerOperation> operations = beczka.getOperations();
         System.out.println("operations = " + operations);
 
-        List<OperationsLogWrapper> mauzerOperations = mauzer1.getOperations();
+        List<WaterContainerOperation> mauzerOperations = mauzer1.getOperations();
         System.out.println("mauzerOperations = " + mauzerOperations);
 
         WaterContainer containerWithMostUnsuccessfulOperations = WaterContainerService.getContainerWithMostUnsuccessfulOperations(list);
         System.out.println("containerWithMostUnsuccessfulOperations = " + containerWithMostUnsuccessfulOperations);
 
-        WaterContainer containerWithMostOperationThisType = WaterContainerService.getContainerWithMostOperationThisType(list, WaterContainerOperations.SUBTRACT);
-        System.out.println("containerWithMostOperationThisType = " + containerWithMostOperationThisType);
+        WaterContainer containerWithMostOperationSubtractType = WaterContainerService.getContainerWithMostSpecificOperationType(list, WaterContainerOperation.OperationType.SUBTRACT);
+        System.out.println("containerWithMostOperationSubtractType = " + containerWithMostOperationSubtractType);
 
 //operacje Enum odlanie i dolanie,
     }
